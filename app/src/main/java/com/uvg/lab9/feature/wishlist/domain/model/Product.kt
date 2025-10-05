@@ -1,4 +1,4 @@
-package com.uvg.lab9.feature.Wishlist.domain.model
+package com.uvg.lab9.feature.wishlist.domain.model
 
 data class Product(
     val id : Int,
