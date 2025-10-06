@@ -5,7 +5,8 @@
 ![3 favoritos seleccionados](images/3favorites.png)
 ![3 favoritos en el perfil](images/3favoritesProfile.png)
 
-Explicación de la arquitectura
+Explicación de la arquitectura:
+
 La arquitectura se basa en MVVM con flujo de datos unidireccional. El ViewModel actúa como única fuente de la verdad: expone el estado de la UI y funciones para manejar intenciones del usuario. La View solo observa ese estado y emite eventos, no contiene lógica. El Model agrupa entidades y contratos de datos. Este desacoplamiento mantiene la UI reactiva y consciente del ciclo de vida.
 
 El UiState es una instancia inmutable del estado de pantalla. Se modela como un objeto que reúne todos los datos que la UI necesita renderizar y se reemplaza completo cuando algo cambia, en lugar de mutarlo. Esta inmutabilidad elimina estados intermedios incoherentes, facilita pruebas deterministas y hace más predecible el renderizado al depender de un único valor observable.
