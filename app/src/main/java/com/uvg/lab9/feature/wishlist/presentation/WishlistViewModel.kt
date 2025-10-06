@@ -7,12 +7,17 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 
-class WishlistViewModel: ViewModel() {
+class WishlistViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(WishlistUiState())
     val uiState: StateFlow<WishlistUiState> = _uiState
 
-    // Cargar 10 productos de prueba
+    init {
+        loadProducts()
+    }
+
     fun loadProducts() {
+        if (_uiState.value.products.isNotEmpty()) return
+
         val products = List(10) { index ->
             Product(
                 id = index + 1,
@@ -23,15 +28,11 @@ class WishlistViewModel: ViewModel() {
         _uiState.value = WishlistUiState(products = products)
     }
 
-    // Alternar el estado de "isWishlisted" de un producto
     fun toggleWishlist(productId: Int) {
         _uiState.update { currentState ->
             val updatedProducts = currentState.products.map { product ->
-                if (product.id == productId) {
-                    product.copy(isWishlisted = !product.isWishlisted)
-                } else {
-                    product
-                }
+                if (product.id == productId) product.copy(isWishlisted = !product.isWishlisted)
+                else product
             }
             currentState.copy(products = updatedProducts)
         }

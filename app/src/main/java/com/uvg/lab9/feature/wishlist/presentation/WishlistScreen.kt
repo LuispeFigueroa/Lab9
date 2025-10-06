@@ -31,31 +31,34 @@ import com.uvg.lab9.feature.wishlist.domain.model.WishlistUiState
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WishlistScreen(
-    viewModel: WishlistViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+    viewModel: WishlistViewModel,
+    onNavigateToProfile: () -> Unit
 ) {
-    // Recolectar el estado
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
-
-    // Cargar productos una sola vez
-    LaunchedEffect(Unit) {
-        viewModel.loadProducts()
-    }
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Wishlist") }
+                title = { Text("Wishlist") },
+                actions = {
+                    IconButton(onClick = onNavigateToProfile) {
+                        Icon(
+                            imageVector = Icons.Filled.Favorite,
+                            contentDescription = "Ir a perfil"
+                        )
+                    }
+                }
             )
         }
     ) { innerPadding ->
-        // Mostrar lista de productos
         WishlistList(
             state = uiState.value,
-            onToggle = { id -> viewModel.toggleWishlist(productId = id) },
-            modifier = Modifier.padding(paddingValues = innerPadding)
+            onToggle = { id -> viewModel.toggleWishlist(id) },
+            modifier = Modifier.padding(innerPadding)
         )
     }
 }
+
 
 @Composable
 private fun WishlistList(
