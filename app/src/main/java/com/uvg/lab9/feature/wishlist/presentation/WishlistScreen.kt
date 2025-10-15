@@ -32,7 +32,8 @@ import com.uvg.lab9.feature.wishlist.domain.model.WishlistUiState
 @Composable
 fun WishlistScreen(
     viewModel: WishlistViewModel,
-    onNavigateToProfile: () -> Unit
+    onNavigateToProfile: () -> Unit,
+    onNavigateToCounter: () -> Unit
 ) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -45,6 +46,12 @@ fun WishlistScreen(
                         Icon(
                             imageVector = Icons.Filled.AccountCircle,
                             contentDescription = "Ir a perfil"
+                        )
+                    }
+                    IconButton(onClick = onNavigateToCounter) {
+                        Icon(
+                            imageVector = Icons.Filled.Favorite,
+                            contentDescription = "Ir a contador"
                         )
                     }
                 }

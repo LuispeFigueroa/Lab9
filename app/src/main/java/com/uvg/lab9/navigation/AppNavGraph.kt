@@ -7,6 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.uvg.lab9.LikeCounterScreen
 import com.uvg.lab9.feature.profile.presentation.ProfileScreen
 import com.uvg.lab9.feature.wishlist.presentation.WishlistScreen
 import com.uvg.lab9.feature.wishlist.presentation.WishlistViewModel
@@ -32,6 +33,9 @@ fun AppNavigation(
                 viewModel = wishlistViewModel,
                 onNavigateToProfile = {
                     navController.navigate(Destinations.Profile.route)
+                },
+                onNavigateToCounter = {
+                    navController.navigate(Destinations.Counter.route)
                 }
             )
         }
@@ -45,6 +49,12 @@ fun AppNavigation(
 
             ProfileScreen(
                 viewModel = wishlistViewModel,
+                onBack = { navController.popBackStack() }
+            )
+        }
+
+        composable(Destinations.Counter.route) {
+            LikeCounterScreen(
                 onBack = { navController.popBackStack() }
             )
         }
